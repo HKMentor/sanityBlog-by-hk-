@@ -2,7 +2,7 @@ import Header from "@/app/component/Header";
 import { client } from "@/studio-course-blogs/lib/sanity";
 import Image from "next/image";
 
-// Define an interface for the block structure 
+// Define an interface for the block structure
 interface Block {
   _key: string;
   _type: string;
@@ -39,7 +39,7 @@ interface BlogDetailsProps {
 }
 
 export default async function BlogDetails({ params }: BlogDetailsProps) {
-  const { slug } = await params;  // Await params
+  const { slug } = params;  // Remove the await here since params are already passed
   const blog = await getBlog(slug);
 
   return (
