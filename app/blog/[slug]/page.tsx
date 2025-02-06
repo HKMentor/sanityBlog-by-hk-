@@ -38,8 +38,11 @@ interface BlogDetailsProps {
   };
 }
 
+// Refactor to await params
 export default async function BlogDetails({ params }: BlogDetailsProps) {
-  const { slug } = params;  // Remove the await here since params are already passed
+  // Await params.slug to get the correct dynamic route value
+  const { slug } = await params;
+
   const blog = await getBlog(slug);
 
   return (
@@ -47,7 +50,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
       <Header />
       <div className="container mx-auto px-6 py-12 max-w-3xl bg-white shadow-lg rounded-xl border border-gray-100">
         <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-6">{blog.title}</h1>
-        
+
         {blog.mainImage && (
           <Image
             src={blog.mainImage.asset.url}
@@ -57,7 +60,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
             className="rounded-xl mt-6 object-cover shadow-lg"
           />
         )}
-        
+
         <div className="flex items-center mt-6 space-x-4">
           {blog.author?.image && (
             <Image
@@ -70,7 +73,7 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
           )}
           <p className="text-gray-600 text-xl font-medium">{`By ${blog.author?.name}`}</p>
         </div>
-        
+
         <div className="mt-8 space-y-8 text-lg text-gray-800">
           {blog.block?.map((block: Block, index: number) => (
             <div key={index} className="space-y-4">
